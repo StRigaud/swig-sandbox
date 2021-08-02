@@ -21,10 +21,10 @@ public:
     ~DeviceManager();
 
     void SetDevice(std::string);
-    void SetDevice(int);
+    void SetDevice(unsigned int);
 
     cl::Device GetDevice();
-    cl::Device GetDevice(int);
+    cl::Device GetDevice(unsigned int);
     std::vector<cl::Device> GetDevices();
 
     std::string DeviceInfo(int=-1);

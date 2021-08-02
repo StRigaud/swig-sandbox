@@ -45,7 +45,7 @@ DeviceManager::~DeviceManager()
     }
 }
 
-void DeviceManager::SetDevice(int index)
+void DeviceManager::SetDevice(unsigned int index)
 {
     if (m_DeviceList.size() < index)
     {
@@ -88,7 +88,7 @@ cl::Device DeviceManager::GetDevice()
     return this->m_DeviceList[this->m_DeviceId];
 }
 
-cl::Device DeviceManager::GetDevice(int device_id)
+cl::Device DeviceManager::GetDevice(unsigned int device_id)
 {
     if (device_id < this->m_DeviceList.size())
     {
