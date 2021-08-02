@@ -14,7 +14,7 @@ cle = pycle.cle()
 
 print("---------------------------------")
 
-# C++: push numpy array in buffer
+# C++: push array in buffer
 
 print("C++ push array 1d:")
 buffer_1d = cle.push(arr1d)
@@ -28,7 +28,7 @@ print("C++ push array 3d:")
 buffer_3d = cle.push(arr3d)
 buffer_3d.GetInfo()
 
-# C++: create buffer from size/type input
+# C++: create buffer from shape or array
 
 print("---------------------------------")
 
@@ -58,4 +58,6 @@ print("C++ create array 1d from array:")
 copy_buffer_3d = cle.create(arr1d)
 copy_buffer_3d.GetInfo()
 
+# C++: pull buffer into array
 
+print("---------------------------------")
