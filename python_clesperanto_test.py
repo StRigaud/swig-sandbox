@@ -7,8 +7,12 @@ arr1d = np.array([1,2,3,4,5,6,7,8,9], dtype=np.float32)
 arr2d = np.array([[1,2,3],[4,5,6]], dtype=np.float32)
 arr3d = np.array([[[1,2,3],[4,5,6],[7,8,9]],[[10,11,12],[13,14,15],[16,17,18]]], dtype=np.float32)
 
+print("---------------------------------")
+
 # C++: initialisation of GPU
 cle = pycle.cle()
+
+print("---------------------------------")
 
 # C++: push numpy array in buffer
 
@@ -26,7 +30,32 @@ buffer_3d.GetInfo()
 
 # C++: create buffer from size/type input
 
-print("C++ create array 3d:")
-new_buffer_3d = cle.create(np.array([3,3,3], dtype=np.float32))
+print("---------------------------------")
+
+print("C++ create array 3d from list:")
+new_buffer_3d = cle.create([1,2,3])
 new_buffer_3d.GetInfo()
+
+print("C++ create array 2d from list:")
+new_buffer_2d = cle.create([2,3])
+new_buffer_2d.GetInfo()
+
+print("C++ create array 1d from list:")
+new_buffer_1d = cle.create([3])
+new_buffer_1d.GetInfo()
+
+print("---------------------------------")
+
+print("C++ create array 3d from array:")
+copy_buffer_3d = cle.create(arr3d)
+copy_buffer_3d.GetInfo()
+
+print("C++ create array 2d from array:")
+copy_buffer_3d = cle.create(arr2d)
+copy_buffer_3d.GetInfo()
+
+print("C++ create array 1d from array:")
+copy_buffer_3d = cle.create(arr1d)
+copy_buffer_3d.GetInfo()
+
 
