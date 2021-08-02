@@ -30,6 +30,8 @@ Buffer create_2darray(float* array, unsigned int n0, unsigned int n1);
 Buffer create_1darray(float* array, unsigned int n0);
 Buffer create_ndarray(unsigned int n0=1, unsigned int n1=1, unsigned int n2=1);
 
+// Buffer create_from_shape(unsigned int shape[3]);
+
 };
 
 }

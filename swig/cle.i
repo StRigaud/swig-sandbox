@@ -36,6 +36,12 @@ def push (self, array):
         return self.push_1darray(array)
 
 def create (self, array):
+    if type(array).__module__ == 'numpy':
+        return self.create_from_array(array)
+    else:
+        return self.create_from_list(array)
+
+def create_from_array (self, array):
     if len(array.shape) == 3:
         return self.create_3darray(array)
     elif len(array.shape) == 2:
@@ -43,6 +49,16 @@ def create (self, array):
     else:
         return self.create_1darray(array)
 
+def create_from_list (self, array):
+    if len(array) == 3:
+        return self.create_ndarray(array[0], array[1], array[2])
+    elif len(array) == 2:
+        return self.create_ndarray(array[0], array[1])
+    else:
+        return self.create_ndarray(array[0])
+
 cle.push = push        
-cle.create = create        
+cle.create = create 
+cle.create_from_array = create_from_array 
+cle.create_from_list = create_from_list        
 %}
