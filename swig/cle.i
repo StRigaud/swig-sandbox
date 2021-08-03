@@ -40,6 +40,8 @@ import_array();
 
 
 %pythoncode %{
+import numpy as np
+
 def push (self, array):
     if len(array.shape) == 3:
         return self.push_3darray(array)
@@ -70,21 +72,16 @@ def create_from_list (self, list):
     else:
         return self.create_ndarray(list[0])
 
-def pull (self, Buffer, array=None):
-    if array is not None:
-        if len(array.shape) == 3:
-            return self.pull_3darray(Buffer, array)
-        elif len(array.shape) == 2:
-            return self.pull_2darray(Buffer, array)
-        else:
-            return self.pull_1darray(Buffer, array)
+def pull (self, Buffer, array=None, type=np.float32):
+    if array is None:
+        array = np.empty((Buffer.GetDim0(), Buffer.GetDim1(), Buffer.GetDim2()), dtype=type)
+    if len(array.shape) == 3:
+        self.pull_3darray(Buffer, array)
+    elif len(array.shape) == 2:
+        self.pull_2darray(Buffer, array)
     else:
-        if Buffer.GetDimensions() == 3:
-            return self.pull_3darray_r(Buffer)
-        elif Buffer.GetDimensions() == 2:
-            return self.pull_2darray_r(Buffer)
-        else:
-            return self.pull_1darray_r(Buffer)
+        self.pull_1darray(Buffer, array)
+    return array
     
 cle.push = push        
 cle.create = create 

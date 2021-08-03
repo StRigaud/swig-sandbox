@@ -26,6 +26,9 @@ public:
     int GetSize() const;
     int GetDimensions() const;
     std::array<int, 3> GetShape() const;
+    int GetDim0() const;
+    int GetDim1() const;
+    int GetDim2() const;
     void GetInfo() const;
 
 };

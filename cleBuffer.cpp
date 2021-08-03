@@ -38,6 +38,21 @@ int Buffer::GetDimensions() const
     return dim;
 }
 
+int Buffer::GetDim0() const
+{
+    return this->m_Shape[0];
+}
+
+int Buffer::GetDim1() const
+{
+    return this->m_Shape[1];
+}
+
+int Buffer::GetDim2() const
+{
+    return this->m_Shape[2];
+}
+
 std::array<int, 3> Buffer::GetShape() const
 {
     return m_Shape;
