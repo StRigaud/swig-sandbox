@@ -61,17 +61,31 @@ buffer_3d_from_array.GetInfo()
 
 print("---------------------------------")
 
-print("Pull C++ 3d buffer into array:")
+print("Pull C++ 3d buffer into inplace array:")
 array3d_pull_from_buffer = np.zeros_like(arr3d)
 cle.pull(buffer_3d, array3d_pull_from_buffer)
 print(array3d_pull_from_buffer)
 
-print("Pull C++ 2d buffer into array:")
+print("Pull C++ 2d buffer into inplace array:")
 array2d_pull_from_buffer = np.zeros_like(arr2d)
 cle.pull(buffer_2d, array2d_pull_from_buffer)
 print(array2d_pull_from_buffer)
 
-print("Pull C++ 1d buffer into array:")
+print("Pull C++ 1d buffer into inplace array:")
 array1d_pull_from_buffer = np.zeros_like(arr1d)
 cle.pull(buffer_1d, array1d_pull_from_buffer)
 print(array1d_pull_from_buffer)
+
+print("---------------------------------")
+
+print("Pull C++ 1d buffer into new array:")
+array1d_pull_from_buffer = cle.pull_1darray_r(buffer_1d)
+print(array1d_pull_from_buffer)
+
+print("Pull C++ 2d buffer into new array:")
+array2d_pull_from_buffer = cle.pull_2darray_r(buffer_2d)
+print(array2d_pull_from_buffer)
+
+print("Pull C++ 3d buffer into new array:")
+array3d_pull_from_buffer = cle.pull_3darray_r(buffer_3d)
+print(array3d_pull_from_buffer)
