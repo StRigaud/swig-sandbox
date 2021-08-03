@@ -14,52 +14,68 @@ cle::cle()
     this->m_gpu.GetSelectedDeviceInfo();
 }
 
-Buffer cle::push_3darray(float* array, unsigned int n0, unsigned int n1, unsigned int n2)
+Buffer cle::push_3darray(float* arr, unsigned int d0, unsigned int d1, unsigned int d2)
 {
-    cl::Buffer obj = CreateBuffer<float>(n0*n1*n2, this->m_gpu);
-    WriteBuffer<float>(obj, array, n0*n1*n2, this->m_gpu);
-    unsigned int dims[3] = {n0, n1, n2};
+    cl::Buffer obj = CreateBuffer<float>(d0*d1*d2, this->m_gpu);
+    WriteBuffer<float>(obj, arr, d0*d1*d2, this->m_gpu);
+    unsigned int dims[3] = {d0, d1, d2};
     return Buffer (obj, dims);
 }
 
-Buffer cle::push_2darray(float* array, unsigned int n0, unsigned int n1)
+Buffer cle::push_2darray(float* arr, unsigned int d0, unsigned int d1)
 {
-    cl::Buffer obj = CreateBuffer<float>(n0*n1, this->m_gpu);
-    WriteBuffer<float>(obj, array, n0*n1, this->m_gpu);
-    unsigned int dims[3] = {1, n0, n1};
+    cl::Buffer obj = CreateBuffer<float>(d0*d1, this->m_gpu);
+    WriteBuffer<float>(obj, arr, d0*d1, this->m_gpu);
+    unsigned int dims[3] = {1, d0, d1};
     return Buffer (obj, dims);
 }
 
-Buffer cle::push_1darray(float* array, unsigned int n0)
+Buffer cle::push_1darray(float* arr, unsigned int d0)
 {
-    cl::Buffer obj = CreateBuffer<float>(n0, this->m_gpu);
-    WriteBuffer<float>(obj, array, n0, this->m_gpu);
-    unsigned int dims[3] = {1, 1, n0};
+    cl::Buffer obj = CreateBuffer<float>(d0, this->m_gpu);
+    WriteBuffer<float>(obj, arr, d0, this->m_gpu);
+    unsigned int dims[3] = {1, 1, d0};
     return Buffer (obj, dims);
 }
 
 
 
-Buffer cle::create_ndarray(unsigned int n0, unsigned int n1, unsigned int n2)
+Buffer cle::create_ndarray(unsigned int d0, unsigned int d1, unsigned int d2)
 {
-    unsigned int dimension[3] = {n0, n1, n2};
+    unsigned int dimension[3] = {d0, d1, d2};
     cl::Buffer obj = CreateBuffer<float>(dimension[0]*dimension[1]*dimension[2], this->m_gpu);
     return Buffer (obj, dimension);
 }
 
-Buffer cle::create_3darray(float* array, unsigned int n0, unsigned int n1, unsigned int n2)
+Buffer cle::create_3darray(float* arr, unsigned int d0, unsigned int d1, unsigned int d2)
 {
-    return this->create_ndarray(n0, n1, n2);
+    return this->create_ndarray(d0, d1, d2);
 }
 
-Buffer cle::create_2darray(float* array, unsigned int n0, unsigned int n1)
+Buffer cle::create_2darray(float* arr, unsigned int d0, unsigned int d1)
 {
-    return this->create_ndarray(n0, n1);
+    return this->create_ndarray(d0, d1);
 }
 
-Buffer cle::create_1darray(float* array, unsigned int n0)
+Buffer cle::create_1darray(float* arr, unsigned int d0)
 {
-    return this->create_ndarray(n0);
+    return this->create_ndarray(d0);
+}
+
+
+void cle::pull_3darray(Buffer buffer, float* out_arr, unsigned int d0, unsigned int d1, unsigned int d2)
+{
+    ReadBuffer<float>(buffer.GetOclPointer(), out_arr, buffer.GetSize(), this->m_gpu);
+}
+
+void cle::pull_2darray(Buffer buffer, float* out_arr, unsigned int d0, unsigned int d1)
+{
+    ReadBuffer<float>(buffer.GetOclPointer(), out_arr, buffer.GetSize(), this->m_gpu);
+}
+
+void cle::pull_1darray(Buffer buffer, float* out_arr, unsigned int d0)
+{
+    ReadBuffer<float>(buffer.GetOclPointer(), out_arr, buffer.GetSize(), this->m_gpu);
 }
 
 
