@@ -62,8 +62,18 @@ def create_from_list (self, list):
     else:
         return self.create_ndarray(list[0])
 
+def pull (self, Buffer, array):
+    if len(array.shape) == 3:
+        return self.pull_3darray(Buffer, array)
+    elif len(array.shape) == 2:
+        return self.pull_2darray(Buffer, array)
+    else:
+        return self.pull_1darray(Buffer, array)
+    
+
 cle.push = push        
 cle.create = create 
+cle.pull = pull
 cle.create_from_array = create_from_array 
 cle.create_from_list = create_from_list        
 %}
