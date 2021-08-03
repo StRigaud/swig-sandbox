@@ -17,9 +17,14 @@ import_array();
 %}
 
 // push
-%apply (float* IN_ARRAY1, int DIM1) {(float* array, unsigned int n0)};
-%apply (float* IN_ARRAY2, int DIM1, int DIM2) {(float* array, unsigned int n0, unsigned int n1)};
-%apply (float* IN_ARRAY3, int DIM1, int DIM2, int DIM3) {(float* array, unsigned int n0, unsigned int n1, unsigned int n2)};
+%apply (float* IN_ARRAY1, int DIM1) {(float* arr, unsigned int d0)};
+%apply (float* IN_ARRAY2, int DIM1, int DIM2) {(float* arr, unsigned int d0, unsigned int d1)};
+%apply (float* IN_ARRAY3, int DIM1, int DIM2, int DIM3) {(float* arr, unsigned int d0, unsigned int d1, unsigned int d2)};
+
+%apply (float* INPLACE_ARRAY1, int DIM1) {(float* out_arr, unsigned int d0)};
+%apply (float* INPLACE_ARRAY2, int DIM1, int DIM2) {(float* out_arr, unsigned int d0, unsigned int d1)};
+%apply (float* INPLACE_ARRAY3, int DIM1, int DIM2, int DIM3) {(float* out_arr, unsigned int d0, unsigned int d1, unsigned int d2)};
+
 
 // Process symbols in header
 %include "clic.h"
@@ -49,13 +54,13 @@ def create_from_array (self, array):
     else:
         return self.create_1darray(array)
 
-def create_from_list (self, array):
-    if len(array) == 3:
-        return self.create_ndarray(array[0], array[1], array[2])
-    elif len(array) == 2:
-        return self.create_ndarray(array[0], array[1])
+def create_from_list (self, list):
+    if len(list) == 3:
+        return self.create_ndarray(list[0], list[1], list[2])
+    elif len(list) == 2:
+        return self.create_ndarray(list[0], list[1])
     else:
-        return self.create_ndarray(array[0])
+        return self.create_ndarray(list[0])
 
 cle.push = push        
 cle.create = create 
