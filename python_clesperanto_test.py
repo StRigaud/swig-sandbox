@@ -15,49 +15,63 @@ cle = pycle.cle()
 print("---------------------------------")
 
 # C++: push array in buffer
-
-print("C++ push array 1d:")
-buffer_1d = cle.push(arr1d)
-buffer_1d.GetInfo()
+print("C++ push array 3d:")
+buffer_3d = cle.push(arr3d)
+buffer_3d.GetInfo()
 
 print("C++ push array 2d:")
 buffer_2d = cle.push(arr2d)
 buffer_2d.GetInfo()
 
-print("C++ push array 3d:")
-buffer_3d = cle.push(arr3d)
-buffer_3d.GetInfo()
+print("C++ push array 1d:")
+buffer_1d = cle.push(arr1d)
+buffer_1d.GetInfo()
 
 # C++: create buffer from shape or array
 
 print("---------------------------------")
 
 print("C++ create array 3d from list:")
-new_buffer_3d = cle.create([1,2,3])
-new_buffer_3d.GetInfo()
+buffer_3d_from_list = cle.create(arr3d.shape)
+buffer_3d_from_list.GetInfo()
 
 print("C++ create array 2d from list:")
-new_buffer_2d = cle.create([2,3])
-new_buffer_2d.GetInfo()
+buffer_2d_from_list = cle.create(arr2d.shape)
+buffer_2d_from_list.GetInfo()
 
 print("C++ create array 1d from list:")
-new_buffer_1d = cle.create([3])
-new_buffer_1d.GetInfo()
+buffer_1d_from_list = cle.create(arr1d.shape)
+buffer_1d_from_list.GetInfo()
 
 print("---------------------------------")
 
 print("C++ create array 3d from array:")
-copy_buffer_3d = cle.create(arr3d)
-copy_buffer_3d.GetInfo()
+buffer_3d_from_array = cle.create(arr3d)
+buffer_3d_from_array.GetInfo()
 
 print("C++ create array 2d from array:")
-copy_buffer_3d = cle.create(arr2d)
-copy_buffer_3d.GetInfo()
+buffer_3d_from_array = cle.create(arr2d)
+buffer_3d_from_array.GetInfo()
 
 print("C++ create array 1d from array:")
-copy_buffer_3d = cle.create(arr1d)
-copy_buffer_3d.GetInfo()
+buffer_3d_from_array = cle.create(arr1d)
+buffer_3d_from_array.GetInfo()
 
 # C++: pull buffer into array
 
 print("---------------------------------")
+
+print("Pull C++ 3d buffer into array:")
+array3d_pull_from_buffer = np.zeros_like(arr3d)
+cle.pull(buffer_3d, array3d_pull_from_buffer)
+print(array3d_pull_from_buffer)
+
+print("Pull C++ 2d buffer into array:")
+array2d_pull_from_buffer = np.zeros_like(arr2d)
+cle.pull(buffer_2d, array2d_pull_from_buffer)
+print(array2d_pull_from_buffer)
+
+print("Pull C++ 1d buffer into array:")
+array1d_pull_from_buffer = np.zeros_like(arr1d)
+cle.pull(buffer_1d, array1d_pull_from_buffer)
+print(array1d_pull_from_buffer)
