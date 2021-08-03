@@ -28,6 +28,16 @@ int Buffer::GetSize() const
     return m_Shape[0]*m_Shape[1]*m_Shape[2];
 }
 
+int Buffer::GetDimensions() const
+{
+    int dim = 1;
+    if (this->m_Shape[2] > 1)
+        dim = 3;
+    else if (this->m_Shape[1] > 1)
+        dim = 2;
+    return dim;
+}
+
 std::array<int, 3> Buffer::GetShape() const
 {
     return m_Shape;

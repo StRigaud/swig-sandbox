@@ -24,6 +24,7 @@ public:
 
     cl::Buffer GetOclPointer() const;
     int GetSize() const;
+    int GetDimensions() const;
     std::array<int, 3> GetShape() const;
     void GetInfo() const;
 
