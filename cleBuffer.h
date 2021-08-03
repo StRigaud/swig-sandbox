@@ -14,17 +14,17 @@ class Buffer
 private:
 
     cl::Buffer m_OclPointer;
-    std::array<unsigned int, 3> m_Shape = {{1, 1, 1}};
+    std::array<int, 3> m_Shape = {{1, 1, 1}};
 
 public:
 
     Buffer() =default;
     Buffer(cl::Buffer);
-    Buffer(cl::Buffer, unsigned int[3]);
+    Buffer(cl::Buffer, int[3]);
 
     cl::Buffer GetOclPointer() const;
     int GetSize() const;
-    std::array<unsigned int, 3> GetShape() const;
+    std::array<int, 3> GetShape() const;
     void GetInfo() const;
 
 };
