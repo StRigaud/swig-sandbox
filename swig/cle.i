@@ -17,13 +17,17 @@ import_array();
 %}
 
 // push
-%apply (float* IN_ARRAY1, int DIM1) {(float* arr, unsigned int d0)};
-%apply (float* IN_ARRAY2, int DIM1, int DIM2) {(float* arr, unsigned int d0, unsigned int d1)};
-%apply (float* IN_ARRAY3, int DIM1, int DIM2, int DIM3) {(float* arr, unsigned int d0, unsigned int d1, unsigned int d2)};
+%apply (float* IN_ARRAY1, int DIM1) {(float* arr, int d0)};
+%apply (float* IN_ARRAY2, int DIM1, int DIM2) {(float* arr, int d0, int d1)};
+%apply (float* IN_ARRAY3, int DIM1, int DIM2, int DIM3) {(float* arr, int d0, int d1, int d2)};
 
-%apply (float* INPLACE_ARRAY1, int DIM1) {(float* out_arr, unsigned int d0)};
-%apply (float* INPLACE_ARRAY2, int DIM1, int DIM2) {(float* out_arr, unsigned int d0, unsigned int d1)};
-%apply (float* INPLACE_ARRAY3, int DIM1, int DIM2, int DIM3) {(float* out_arr, unsigned int d0, unsigned int d1, unsigned int d2)};
+%apply (float* INPLACE_ARRAY1, int DIM1) {(float* inplace_arr, int d0)};
+%apply (float* INPLACE_ARRAY2, int DIM1, int DIM2) {(float* inplace_arr, int d0, int d1)};
+%apply (float* INPLACE_ARRAY3, int DIM1, int DIM2, int DIM3) {(float* inplace_arr, int d0, int d1, int d2)};
+
+%apply (float** ARGOUTVIEW_ARRAY1, int* DIM1) {(float** out_arr, int* d0)};
+%apply (float** ARGOUTVIEW_ARRAY2, int* DIM1, int* DIM2) {(float** out_arr, int* d0, int* d1)};
+%apply (float** ARGOUTVIEW_ARRAY3, int* DIM1, int* DIM2, int* DIM3) {(float** out_arr, int* d0, int* d1, int* d2)};
 
 
 // Process symbols in header
