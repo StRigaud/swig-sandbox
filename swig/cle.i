@@ -35,6 +35,10 @@ import_array();
 %include "cleBuffer.h"
 %include "clesperanto.h"
 
+
+
+
+
 %pythoncode %{
 def push (self, array):
     if len(array.shape) == 3:
@@ -66,15 +70,22 @@ def create_from_list (self, list):
     else:
         return self.create_ndarray(list[0])
 
-def pull (self, Buffer, array):
-    if len(array.shape) == 3:
-        return self.pull_3darray(Buffer, array)
-    elif len(array.shape) == 2:
-        return self.pull_2darray(Buffer, array)
+def pull (self, Buffer, array=None):
+    if array is not None:
+        if len(array.shape) == 3:
+            return self.pull_3darray(Buffer, array)
+        elif len(array.shape) == 2:
+            return self.pull_2darray(Buffer, array)
+        else:
+            return self.pull_1darray(Buffer, array)
     else:
-        return self.pull_1darray(Buffer, array)
+        if Buffer.GetDimensions() == 3:
+            return self.pull_3darray_r(Buffer)
+        elif Buffer.GetDimensions() == 2:
+            return self.pull_2darray_r(Buffer)
+        else:
+            return self.pull_1darray_r(Buffer)
     
-
 cle.push = push        
 cle.create = create 
 cle.pull = pull

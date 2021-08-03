@@ -79,13 +79,13 @@ print(array1d_pull_from_buffer)
 print("---------------------------------")
 
 print("Pull C++ 1d buffer into new array:")
-array1d_pull_from_buffer = cle.pull_1darray_r(buffer_1d)
+array1d_pull_from_buffer = cle.pull(buffer_1d)
 print(array1d_pull_from_buffer)
 
 print("Pull C++ 2d buffer into new array:")
-array2d_pull_from_buffer = cle.pull_2darray_r(buffer_2d)
+array2d_pull_from_buffer = cle.pull(buffer_2d)
 print(array2d_pull_from_buffer)
 
 print("Pull C++ 3d buffer into new array:")
-array3d_pull_from_buffer = cle.pull_3darray_r(buffer_3d)
+array3d_pull_from_buffer = cle.pull(buffer_3d)
 print(array3d_pull_from_buffer)
