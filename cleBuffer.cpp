@@ -18,7 +18,7 @@ Buffer::Buffer(cl::Buffer ptr, int shape[3]) : Buffer(ptr)
     }   
 }
 
-cl::Buffer Buffer::GetOclPointer() const
+cl::Buffer Buffer::GetObject() const
 {
     return m_OclPointer;
 }
@@ -62,6 +62,5 @@ void Buffer::GetInfo() const
 {
     std::cout << "Buffer<Float>(" << std::to_string(this->m_Shape[0])+"," << std::to_string(this->m_Shape[1])+"," << std::to_string(this->m_Shape[2]) << ")" << std::endl;
 }
-
 
 }

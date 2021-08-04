@@ -13,7 +13,7 @@ class Buffer : public LightObject
 {
     
 private:
-    static const LightObject::ObjectType O = ObjectType::cleBuffer;
+    static const LightObject::ObjectType O = LightObject::cleBuffer;
     DataType T = LightObject::Float;
     
     cl::Buffer m_OclPointer;
@@ -25,7 +25,7 @@ public:
     Buffer(cl::Buffer);
     Buffer(cl::Buffer, int[3]);
 
-    cl::Buffer GetOclPointer() const;
+    cl::Buffer GetObject() const;
     int GetSize() const;
     int GetDimensions() const;
     std::array<int, 3> GetShape() const;
