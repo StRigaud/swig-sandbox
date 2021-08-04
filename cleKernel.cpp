@@ -63,8 +63,9 @@ std::string Kernel::LoadDefines()
     // loop on parameters
     for (auto itr = m_ParameterList.begin(); itr != m_ParameterList.end(); ++itr)
     {
-        if (itr->second->IsObjectType(LightObject::cleBuffer))
-        {                
+        // if (itr->second->IsObjectType(LightObject::cleBuffer))
+        if (itr->second->GetObjectType() == "cleBuffer")
+        {              
             // get object information
             std::shared_ptr<clic::Buffer> object = std::dynamic_pointer_cast<clic::Buffer>(itr->second);
             std::string tagObject = itr->first;
@@ -78,16 +79,16 @@ std::string Kernel::LoadDefines()
             // image size handling
             if (object->GetShape()[2] > 1)
             {
-                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[0]);
+                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[2]);
                 defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_HEIGHT " + std::to_string(object->GetShape()[1]);
-                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_DEPTH " + std::to_string(object->GetShape()[2]);
+                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_DEPTH " + std::to_string(object->GetShape()[0]);
             }
             else
             {
                 if (object->GetShape()[1] > 1)
                 {
-                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[0]);
-                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_HEIGHT " + std::to_string(object->GetShape()[1]);
+                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[1]);
+                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_HEIGHT " + std::to_string(object->GetShape()[0]);
                 }
                 else
                 {
@@ -116,7 +117,7 @@ std::string Kernel::LoadDefines()
                     defines + "\n#define POS_" + tagObject + "_INSTANCE(pos0,pos1,pos2,pos3) (int4)(pos0, pos1, pos2, 0)";
             }
             // read/write images
-            std::string sdim = (object->GetShape()[2] == 1) ? "2" : "3";
+            std::string sdim = (object->GetShape()[0] == 1) ? "2" : "3";
             defines = defines + "\n#define READ_" + tagObject + "_IMAGE(a,b,c) read_buffer" + sdim + "d" + abbrType +
                     "(GET_IMAGE_WIDTH(a),GET_IMAGE_HEIGHT(a),GET_IMAGE_DEPTH(a),a,b,c)";
             defines = defines + "\n#define WRITE_" + tagObject + "_IMAGE(a,b,c) write_buffer" + sdim + "d" + abbrType +
@@ -272,11 +273,10 @@ void Kernel::BuildProgramKernel()
             this->m_Program = cl::Program(this->m_gpu.GetContextManager().GetContext(), sources);
             if(this->m_Program.build({this->m_gpu.GetDeviceManager().GetDevice()}) != CL_SUCCESS)
             {
-                std::cerr << "Kernel : Fail to create program from source." << std::endl;
-                std::cerr << "\tbuild log:" << std::endl;
-                std::cerr << this->m_Program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(
-                                this->m_gpu.GetDeviceManager().GetDevice()) 
-                                << std::endl;
+                std::string build_log = this->m_Program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(this->m_gpu.GetDeviceManager().GetDevice());
+                std::cout << "Kernel : Fail to create program from source." << std::endl;
+                std::cout << "\tbuild log:" << std::endl;
+                std::cout << build_log << std::endl;
             }
             m_CurrentHash = source_hash;
             this->m_gpu.AddProgram(this->m_Program, m_CurrentHash);
