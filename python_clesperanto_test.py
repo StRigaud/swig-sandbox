@@ -101,13 +101,9 @@ print(array3d_pull_from_buffer)
 print("---------------------------------")
 
 image = np.array([[[1,2,3],[4,5,6],[7,8,9]],[[10,11,12],[13,14,15],[16,17,18]]], dtype=np.float32)
-print("we process a float image of shape: ", image.shape)
 
 input = cle.push(image)
-input.GetInfo()
-
 output = cle.create(image)
-output.GetInfo()
 
 cle.add_image_and_scalar(input, output, 100)
 
