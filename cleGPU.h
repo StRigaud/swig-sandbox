@@ -5,6 +5,7 @@
 
 #include "clic.h"
 
+
 #include "cleDeviceManager.h"
 #include "cleContextManager.h"
 #include "clePlatformManager.h"
@@ -46,6 +47,7 @@ public:
 
     void GetInfo();
     void GetSelectedDeviceInfo();
+
 };
 
 

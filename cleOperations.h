@@ -55,6 +55,6 @@ namespace clic
         );
     }
 
-} // namespace cle
+} // namespace clic
 
 #endif // __cleOperations_h

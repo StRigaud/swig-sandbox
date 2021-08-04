@@ -38,8 +38,6 @@ Buffer cle::push_1darray(float* arr, int d0)
     return Buffer (obj, dims);
 }
 
-
-
 Buffer cle::create_ndarray(int d0, int d1, int d2)
 {
     int dimension[3] = {d0, d1, d2};
