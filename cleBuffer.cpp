@@ -63,4 +63,15 @@ void Buffer::GetInfo() const
     std::cout << "Buffer<Float>(" << std::to_string(this->m_Shape[0])+"," << std::to_string(this->m_Shape[1])+"," << std::to_string(this->m_Shape[2]) << ")" << std::endl;
 }
 
+std::string Buffer::GetObjectType() const
+{
+    return this->ObjectTypeToString(O);
+}
+
+std::string Buffer::GetDataType() const
+{
+    return this->DataTypeToString(T);
+}
+
+
 }

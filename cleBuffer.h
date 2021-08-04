@@ -34,6 +34,9 @@ public:
     int GetDim2() const;
     void GetInfo() const;
 
+    std::string GetObjectType() const;
+    std::string GetDataType() const;
+
 };
 
 }

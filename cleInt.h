@@ -25,6 +25,9 @@ public:
     int GetObject();
     size_t GetSize() const;
 
+    std::string GetObjectType() const;
+    std::string GetDataType() const;
+
 };
 
 } // namespace clic

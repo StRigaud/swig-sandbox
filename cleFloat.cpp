@@ -23,5 +23,15 @@ size_t Float::GetSize() const
     return 1;
 }
 
+std::string Float::GetObjectType() const
+{
+    return this->ObjectTypeToString(O);
+}
+
+std::string Float::GetDataType() const
+{
+    return this->DataTypeToString(T);
+}
+
 } // namespace clic
 
