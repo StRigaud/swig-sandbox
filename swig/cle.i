@@ -8,6 +8,10 @@
 #include "cleBuffer.h"
 #include "cleGPU.h"
 #include "cleOperations.h"
+#include "cleLightObject.h"
+#include "cleInt.h"
+#include "cleFloat.h"
+#include "cleKernel.h"
 %}
 
 %include "numpy.i"
@@ -34,8 +38,6 @@ import_array();
 %include "clic.h"
 %include "cleBuffer.h"
 %include "clesperanto.h"
-
-
 
 
 
