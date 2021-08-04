@@ -8,14 +8,14 @@
 #include <string>
 #include <fstream>
 
-namespace cle
+namespace clic
 {
 
 class Float : public LightObject
 {
 private:
-    static const ObjectType O = ObjectType::cleFloat;
-    static const DataType T = DataType::Float;
+    static const LightObject::ObjectType O = ObjectType::cleFloat;
+    static const LightObject::DataType T = DataType::Float;
 
     float m_Object;    
 
@@ -27,6 +27,6 @@ public:
 
 };
 
-} // namespace cle
+} // namespace clic
 
 #endif // __cleScalar_h

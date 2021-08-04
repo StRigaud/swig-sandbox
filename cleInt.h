@@ -8,14 +8,14 @@
 #include <string>
 #include <fstream>
 
-namespace cle
+namespace clic
 {
 
 class Int : public LightObject
 {
 private:
-    static const ObjectType O = ObjectType::cleInt;
-    static const DataType T = DataType::Int;
+    static const LightObject::ObjectType O = LightObject::cleInt;
+    static const LightObject::DataType T = LightObject::Int;
 
     int m_Object;    
 
@@ -27,6 +27,6 @@ public:
 
 };
 
-} // namespace cle
+} // namespace clic
 
 #endif // __cleInt_h

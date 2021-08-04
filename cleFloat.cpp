@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace cle
+namespace clic
 {
 
 Float::Float(float obj)
@@ -23,5 +23,5 @@ size_t Float::GetSize() const
     return 1;
 }
 
-} // namespace cle
+} // namespace clic
 

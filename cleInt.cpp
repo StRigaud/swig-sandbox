@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace cle
+namespace clic
 {
 
 Int::Int(int obj)
@@ -23,8 +23,5 @@ size_t Int::GetSize() const
     return 1;
 }
 
-
-
-
-} // namespace cle
+} // namespace clic
 
