@@ -20,9 +20,8 @@ public:
     LightObject() = default;
     virtual ~LightObject() = default;
 
-    std::string GetObjectType() const;
-    std::string GetDataType() const;
-
+    virtual std::string GetObjectType() const;
+    virtual std::string GetDataType() const;
     bool IsObjectType(ObjectType) const;
     bool IsDataType(DataType) const;
 
