@@ -79,16 +79,16 @@ std::string Kernel::LoadDefines()
             // image size handling
             if (object->GetShape()[2] > 1)
             {
-                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[2]);
+                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[0]);
                 defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_HEIGHT " + std::to_string(object->GetShape()[1]);
-                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_DEPTH " + std::to_string(object->GetShape()[0]);
+                defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_DEPTH " + std::to_string(object->GetShape()[2]);
             }
             else
             {
                 if (object->GetShape()[1] > 1)
                 {
-                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[1]);
-                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_HEIGHT " + std::to_string(object->GetShape()[0]);
+                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_WIDTH " + std::to_string(object->GetShape()[0]);
+                    defines = defines + "\n#define IMAGE_SIZE_" + tagObject + "_HEIGHT " + std::to_string(object->GetShape()[1]);
                 }
                 else
                 {
