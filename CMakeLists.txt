@@ -20,21 +20,29 @@ if(OpenCL_FOUND)
 endif()
 
 # Create main and link to liba
-add_library(${PROJECT_NAME} clesperanto.cpp cleBuffer.cpp cleGPU.cpp clePlatformManager.cpp cleDeviceManager.cpp cleContextManager.cpp cleCommandQueueManager.cpp)
+file(GLOB src ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB header ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+
+add_library(${PROJECT_NAME} ${src} ${header} )
 
 target_link_libraries(${PROJECT_NAME} OpenCL::OpenCL)
 
 # Set up public headers for swig-example
-set_target_properties(${PROJECT_NAME} PROPERTIES 
-        PUBLIC_HEADER "clic.h" 
-        PUBLIC_HEADER "clesperanto.h" 
-        PUBLIC_HEADER "cleBuffer.h"
-        PUBLIC_HEADER "cleGPU.h"
-        PUBLIC_HEADER "clePlatformManager.h"
-        PUBLIC_HEADER "cleDeviceManager.h"
-        PUBLIC_HEADER "cleContextManager.h"
-        PUBLIC_HEADER "cleCommandQueueManager.h"
-        PUBLIC_HEADER "cleOperations.h")
+# add_dependencies(${PROJECT_NAME} ${header})
+target_include_directories( ${PROJECT_NAME} PUBLIC 
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+    "$<INSTALL_INTERFACE:.>"
+) 
+# set_target_properties(${PROJECT_NAME} PROPERTIES 
+#         PUBLIC_HEADER "clic.h" 
+#         PUBLIC_HEADER "clesperanto.h" 
+#         PUBLIC_HEADER "cleBuffer.h"
+#         PUBLIC_HEADER "cleGPU.h"
+#         PUBLIC_HEADER "clePlatformManager.h"
+#         PUBLIC_HEADER "cleDeviceManager.h"
+#         PUBLIC_HEADER "cleContextManager.h"
+#         PUBLIC_HEADER "cleCommandQueueManager.h"
+#         PUBLIC_HEADER "cleOperations.h")
 
 # Add install target
 install(TARGETS ${PROJECT_NAME}
