@@ -3,16 +3,19 @@
 
 #include <array>
 
-#include "clic.h"
+// #include "clic.h"
+#include "cleLightObject.h"
 
 namespace clic
 {
 
-class Buffer
+class Buffer : public LightObject
 {
     
 private:
-
+    static const LightObject::ObjectType O = ObjectType::cleBuffer;
+    DataType T = LightObject::Float;
+    
     cl::Buffer m_OclPointer;
     std::array<int, 3> m_Shape = {{1, 1, 1}};
 
