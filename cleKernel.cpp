@@ -170,7 +170,7 @@ void Kernel::SetArguments()
         if(m_ParameterList.find(it->c_str()) != m_ParameterList.end())
         {
             std::string tag = it->c_str();
-            if (m_ParameterList.at(tag)->IsObjectType(LightObject::cleBuffer))
+            if (m_ParameterList.at(tag)->GetObjectType() == "cleBuffer")
             {    
                 std::shared_ptr<clic::Buffer> object = std::dynamic_pointer_cast<clic::Buffer>(m_ParameterList.at(tag));
                 this->m_Kernel.setArg(index, object->GetObject());
@@ -180,12 +180,12 @@ void Kernel::SetArguments()
                     m_GlobalRange[i] = std::max(m_GlobalRange[i], tempDim);
                 }
             }
-            else if (m_ParameterList.at(tag)->IsObjectType(LightObject::cleFloat))
+            else if (m_ParameterList.at(tag)->GetObjectType() == "cleFloat")
             {    
                 std::shared_ptr<clic::Float> object = std::dynamic_pointer_cast<clic::Float>(m_ParameterList.at(tag));
                 this->m_Kernel.setArg(index, object->GetObject());
             }
-            else if (m_ParameterList.at(tag)->IsObjectType(LightObject::cleInt))
+            else if (m_ParameterList.at(tag)->GetObjectType() == "cleInt")
             {   
                 std::shared_ptr<clic::Int> object = std::dynamic_pointer_cast<clic::Int>(m_ParameterList.at(tag));
                 this->m_Kernel.setArg(index, object->GetObject());
@@ -288,10 +288,17 @@ void Kernel::BuildProgramKernel()
 
 void Kernel::EnqueueKernel()
 {
-    cl::NDRange globalND(this->m_GlobalRange[0], this->m_GlobalRange[1], this->m_GlobalRange[2]);    
-    this->m_gpu.GetCommandQueueManager().GetCommandQueue().enqueueNDRangeKernel(
-        this->m_Kernel, cl::NullRange, globalND, cl::NullRange
+    cl::NDRange globalND(this->m_GlobalRange[0], this->m_GlobalRange[1], this->m_GlobalRange[2]);  
+    try
+    {
+        this->m_gpu.GetCommandQueueManager().GetCommandQueue().enqueueNDRangeKernel(
+            this->m_Kernel, cl::NullRange, globalND, cl::NullRange
         );
+    }
+    catch(const cl::Error& e)
+    {
+        std::cout << "Exception caught! " << e.what() << " -> " << e.err() << '\n';
+    }
     this->m_gpu.GetCommandQueueManager().GetCommandQueue().finish();
 }
 
