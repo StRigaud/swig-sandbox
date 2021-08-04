@@ -6,12 +6,6 @@
 #include "clic.h"
 #include "clesperanto.h"
 #include "cleBuffer.h"
-#include "cleGPU.h"
-#include "cleOperations.h"
-#include "cleLightObject.h"
-#include "cleInt.h"
-#include "cleFloat.h"
-#include "cleKernel.h"
 %}
 
 %include "numpy.i"
@@ -38,6 +32,7 @@ import_array();
 %include "clic.h"
 %include "cleBuffer.h"
 %include "clesperanto.h"
+
 
 
 
@@ -76,7 +71,7 @@ def create_from_list (self, list):
 
 def pull (self, Buffer, array=None, type=np.float32):
     if array is None:
-        array = np.empty((Buffer.GetDim0(), Buffer.GetDim1(), Buffer.GetDim2()), dtype=type)
+        array = np.empty((Buffer.GetDim0(), Buffer.GetDim1(), Buffer.GetDim2()), dtype=type).squeeze()
     if len(array.shape) == 3:
         self.pull_3darray(Buffer, array)
     elif len(array.shape) == 2:
