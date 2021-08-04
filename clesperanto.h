@@ -6,6 +6,8 @@
 #include "cleBuffer.h"
 #include "cleGPU.h"
 
+#include "cleAddImageAndScalarKernel.h"
+
 namespace clic
 {
 
@@ -39,6 +41,8 @@ public:
     // void pull_1darray_r(Buffer buffer, float** out_arr, int* d0);
 
     // Buffer create_from_shape(int shape[3]);
+
+    void add_image_and_scalar(Buffer src, Buffer dst, float scalar);
 
 };
 
