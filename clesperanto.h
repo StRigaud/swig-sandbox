@@ -34,9 +34,9 @@ public:
     void pull_2darray(Buffer buffer, float* inplace_arr, int d0, int d1);
     void pull_1darray(Buffer buffer, float* inplace_arr, int d0);
 
-    void pull_3darray_r(Buffer buffer, float** out_arr, int* d0, int* d1, int* d2);
-    void pull_2darray_r(Buffer buffer, float** out_arr, int* d0, int* d1);
-    void pull_1darray_r(Buffer buffer, float** out_arr, int* d0);
+    // void pull_3darray_r(Buffer buffer, float** out_arr, int* d0, int* d1, int* d2);
+    // void pull_2darray_r(Buffer buffer, float** out_arr, int* d0, int* d1);
+    // void pull_1darray_r(Buffer buffer, float** out_arr, int* d0);
 
     // Buffer create_from_shape(int shape[3]);
 
