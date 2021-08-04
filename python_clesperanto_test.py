@@ -7,6 +7,10 @@ arr1d = np.array([1,2,3,4,5,6,7,8,9], dtype=np.float32)
 arr2d = np.array([[1,2,3],[4,5,6]], dtype=np.float32)
 arr3d = np.array([[[1,2,3],[4,5,6],[7,8,9]],[[10,11,12],[13,14,15],[16,17,18]]], dtype=np.float32)
 
+print("1d shape:",arr1d.shape)
+print("2d shape:",arr2d.shape)
+print("3d shape:",arr3d.shape)
+
 print("---------------------------------")
 
 # C++: initialisation of GPU
@@ -89,3 +93,24 @@ print(array2d_pull_from_buffer)
 print("Pull C++ 3d buffer into new array:")
 array3d_pull_from_buffer = cle.pull(buffer_3d)
 print(array3d_pull_from_buffer)
+
+# print(buffer_3d.GetObjectType())
+
+
+# Test executing a kernel
+print("---------------------------------")
+
+image = np.array([[[1,2,3],[4,5,6],[7,8,9]],[[10,11,12],[13,14,15],[16,17,18]]], dtype=np.float32)
+print("we process a float image of shape: ", image.shape)
+
+input = cle.push(image)
+input.GetInfo()
+
+output = cle.create(image)
+output.GetInfo()
+
+cle.add_image_and_scalar(input, output, 100)
+
+result = cle.pull(output)
+
+print(result)
