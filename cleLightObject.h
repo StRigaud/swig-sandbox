@@ -26,7 +26,6 @@ public:
     bool IsObjectType(ObjectType) const;
     bool IsDataType(DataType) const;
 
-
 protected:    
     std::string ObjectTypeToString(const ObjectType) const;
     std::string DataTypeToString(const DataType) const;
