@@ -18,7 +18,7 @@ public:
     enum DataType {Float, Char, UChar, Int, UInt, Short, UShort};
 
     LightObject() = default;
-    ~LightObject() = default;
+    virtual ~LightObject() = default;
 
     std::string GetObjectType() const;
     std::string GetDataType() const;
