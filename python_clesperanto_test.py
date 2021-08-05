@@ -94,9 +94,6 @@ print("Pull C++ 3d buffer into new array:")
 array3d_pull_from_buffer = cle.pull(buffer_3d)
 print(array3d_pull_from_buffer)
 
-# print(buffer_3d.GetObjectType())
-
-
 # Test executing a kernel
 print("---------------------------------")
 
