@@ -3,6 +3,9 @@ import build.swig.python.pyclesperanto as pycle
 import numpy as np
 import time
 
+start_timestart_time = time.time()
+
+
 image = np.ones((512,512,100), dtype=np.float32)
 valid = np.ones((512,512,100), dtype=np.float32) * 101
 
@@ -43,3 +46,5 @@ print("--- %s seconds ---" % (exetime))
 
 result = cle.pull(output)
 print("--- %s seconds ---" % (time.time() - start_time))
+
+print("final --- %s seconds ---" % (time.time() - start_timestart_time))
