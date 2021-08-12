@@ -263,23 +263,23 @@ void Kernel::BuildProgramKernel()
     size_t source_hash = hasher(sources);
     if(m_CurrentHash != source_hash)  
     {
-        if(m_gpu.FindProgram(source_hash))
+        if(this->m_gpu->FindProgram(source_hash))
         {
-            this->m_Program = m_gpu.GetProgram(source_hash);
+            this->m_Program = this->m_gpu->GetProgram(source_hash);
             this->m_CurrentHash = source_hash;
         }
         else
         {
-            this->m_Program = cl::Program(this->m_gpu.GetContextManager().GetContext(), sources);
-            if(this->m_Program.build({this->m_gpu.GetDeviceManager().GetDevice()}) != CL_SUCCESS)
+            this->m_Program = cl::Program(this->m_gpu->GetContextManager().GetContext(), sources);
+            if(this->m_Program.build({this->m_gpu->GetDeviceManager().GetDevice()}) != CL_SUCCESS)
             {
-                std::string build_log = this->m_Program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(this->m_gpu.GetDeviceManager().GetDevice());
+                std::string build_log = this->m_Program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(this->m_gpu->GetDeviceManager().GetDevice());
                 std::cout << "Kernel : Fail to create program from source." << std::endl;
                 std::cout << "\tbuild log:" << std::endl;
                 std::cout << build_log << std::endl;
             }
             m_CurrentHash = source_hash;
-            this->m_gpu.AddProgram(this->m_Program, m_CurrentHash);
+            this->m_gpu->AddProgram(this->m_Program, m_CurrentHash);
         }
         std::string fullName = this->m_KernelName + this->m_DimensionTag;
         this->m_Kernel = cl::Kernel(this->m_Program, fullName.c_str());
@@ -291,7 +291,7 @@ void Kernel::EnqueueKernel()
     cl::NDRange globalND(this->m_GlobalRange[0], this->m_GlobalRange[1], this->m_GlobalRange[2]);  
     try
     {
-        this->m_gpu.GetCommandQueueManager().GetCommandQueue().enqueueNDRangeKernel(
+        this->m_gpu->GetCommandQueueManager().GetCommandQueue().enqueueNDRangeKernel(
             this->m_Kernel, cl::NullRange, globalND, cl::NullRange
         );
     }
@@ -299,10 +299,10 @@ void Kernel::EnqueueKernel()
     {
         std::cout << "Exception caught! " << e.what() << " -> " << e.err() << '\n';
     }
-    this->m_gpu.GetCommandQueueManager().GetCommandQueue().finish();
+    this->m_gpu->GetCommandQueueManager().GetCommandQueue().finish();
 }
 
-Kernel::Kernel(GPU& gpu, std::string kernel, std::vector<std::string> tags) : m_gpu(gpu)
+Kernel::Kernel(GPU* gpu, std::string kernel, std::vector<std::string> tags) : m_gpu(gpu)
 {
     this->m_KernelName = kernel;
     this->m_TagList = tags;

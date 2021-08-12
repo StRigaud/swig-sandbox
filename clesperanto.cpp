@@ -10,8 +10,8 @@ namespace clic
 
 cle::cle()
 {
-    this->m_gpu = GPU("GTX");
-    this->m_gpu.GetSelectedDeviceInfo();
+    this->m_gpu = GPU();
+    // this->m_gpu.GetSelectedDeviceInfo();
 }
 
 Buffer cle::push_3darray(float* arr, int d0, int d1, int d2)
@@ -106,7 +106,7 @@ void cle::pull_1darray(Buffer buffer, float* inplace_arr, int d0)
 
 void cle::add_image_and_scalar(Buffer src, Buffer dst, float scalar)
 {
-    AddImageAndScalarKernel kernel(this->m_gpu);
+    AddImageAndScalarKernel kernel(&m_gpu);
     kernel.SetInput(src);
     kernel.SetOutput(dst);
     kernel.SetScalar(scalar);

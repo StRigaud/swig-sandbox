@@ -44,6 +44,7 @@ public:
     bool FindProgram(size_t);
     cl::Program GetProgram(size_t);
     void AddProgram(cl::Program, size_t);
+    int GetProgramListSize();
 
     void GetInfo();
     void GetSelectedDeviceInfo();

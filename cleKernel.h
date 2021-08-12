@@ -33,7 +33,7 @@ private:
     cl::Kernel m_Kernel;
 
 protected:
-    GPU m_gpu;
+    GPU *m_gpu;
 
     // kernel specifics
     std::string m_KernelName;
@@ -65,7 +65,7 @@ protected:
     void EnqueueKernel();
 
 public:
-    Kernel(GPU&, std::string, std::vector<std::string>);
+    Kernel(GPU*, std::string, std::vector<std::string>);
     ~Kernel();
 
     // virtual abstract method Execute

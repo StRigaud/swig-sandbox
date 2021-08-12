@@ -96,4 +96,10 @@ void GPU::GetSelectedDeviceInfo()
     std::cout << m_DeviceManager.DeviceInfo() << std::endl;
 }
 
+int GPU::GetProgramListSize()
+{
+    return m_ProgramList.size();
+}
+
+
 } // namespace clic

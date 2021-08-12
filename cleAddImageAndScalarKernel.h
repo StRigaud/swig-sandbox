@@ -25,7 +25,7 @@ private:
         ;     
 
 public:
-    AddImageAndScalarKernel(GPU gpu) : 
+    AddImageAndScalarKernel(GPU *gpu) : 
         Kernel( gpu, 
                 "add_image_and_scalar", 
                 {"src", "dst", "scalar"}
