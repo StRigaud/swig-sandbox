@@ -1,7 +1,7 @@
 #ifndef __cleCommandQueueManager_h
 #define __cleCommandQueueManager_h
 
-#include "clic.h"
+#include "clic.hpp"
 
 #include <vector>
 

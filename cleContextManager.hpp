@@ -2,7 +2,7 @@
 #define __cleContextManager_h
 
 
-#include "clic.h"
+#include "clic.hpp"
 
 #include <vector>
 

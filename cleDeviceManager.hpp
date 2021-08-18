@@ -1,7 +1,7 @@
 #ifndef __cleDeviceManager_h
 #define __cleDeviceManager_h
 
-#include "clic.h"
+#include "clic.hpp"
 
 #include <vector>
 

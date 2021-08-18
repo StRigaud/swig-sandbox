@@ -3,7 +3,7 @@
 #ifndef __cleKernel_h
 #define __cleKernel_h
 
-#include "clic.h"
+#include "clic.hpp"
 
 #include <string>
 #include <fstream>
@@ -14,13 +14,10 @@
 #include <algorithm>
 #include <memory>
 
-#include "cleLightObject.h"
-#include "cleBuffer.h"
-#include "cleFloat.h"
-#include "cleInt.h"
+#include "cleDataType.hpp"
 
-#include "cleGPU.h"
-#include "cleOperations.h"
+#include "cleGPU.hpp"
+#include "cleOperations.hpp"
 
 
 namespace clic
@@ -51,7 +48,7 @@ protected:
     std::string LoadSources();
     std::string LoadDefines();
     std::string GenerateSources();
-    std::string TypeAbbr(const std::string) const;
+    std::string TypeAbbr(const char*) const;
 
     // Populate Parameter list with data and tag
     void AddObject(Buffer, std::string);

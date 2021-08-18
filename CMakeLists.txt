@@ -21,7 +21,7 @@ endif()
 
 # Create main and link to liba
 file(GLOB src ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-file(GLOB header ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+file(GLOB header ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
 
 add_library(${PROJECT_NAME} ${src} ${header} )
 

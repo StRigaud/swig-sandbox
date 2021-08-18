@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-#include "clesperanto.h"
-#include "cleOperations.h"
+#include "clesperanto.hpp"
+#include "cleOperations.hpp"
 
 namespace clic
 {
@@ -19,7 +19,7 @@ Buffer cle::push_3darray(float* arr, int d0, int d1, int d2)
     cl::Buffer obj = CreateBuffer<float>(d0*d1*d2, this->m_gpu);
     WriteBuffer<float>(obj, arr, d0*d1*d2, this->m_gpu);
     int dims[3] = {d0, d1, d2};
-    return Buffer (obj, dims);
+    return Buffer (obj, dims, Buffer::FLOAT);
 }
 
 Buffer cle::push_2darray(float* arr, int d0, int d1)
@@ -27,7 +27,7 @@ Buffer cle::push_2darray(float* arr, int d0, int d1)
     cl::Buffer obj = CreateBuffer<float>(d0*d1, this->m_gpu);
     WriteBuffer<float>(obj, arr, d0*d1, this->m_gpu);
     int dims[3] = {d0, d1, 1};
-    return Buffer (obj, dims);
+    return Buffer (obj, dims, Buffer::FLOAT);
 }
 
 Buffer cle::push_1darray(float* arr, int d0)
@@ -35,14 +35,14 @@ Buffer cle::push_1darray(float* arr, int d0)
     cl::Buffer obj = CreateBuffer<float>(d0, this->m_gpu);
     WriteBuffer<float>(obj, arr, d0, this->m_gpu);
     int dims[3] = {d0, 1, 1};
-    return Buffer (obj, dims);
+    return Buffer (obj, dims, Buffer::FLOAT);
 }
 
 Buffer cle::create_ndarray(int d0, int d1, int d2)
 {
     int dimension[3] = {d0, d1, d2};
     cl::Buffer obj = CreateBuffer<float>(dimension[0]*dimension[1]*dimension[2], this->m_gpu);
-    return Buffer (obj, dimension);
+    return Buffer (obj, dimension, Buffer::FLOAT);
 }
 
 Buffer cle::create_3darray(float* arr, int d0, int d1, int d2)

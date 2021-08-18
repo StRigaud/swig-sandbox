@@ -2,7 +2,7 @@
 #ifndef __cleAddImageAndScalarKernel_h
 #define __cleAddImageAndScalarKernel_h
 
-#include "cleKernel.h"
+#include "cleKernel.hpp"
 
 namespace clic
 {
@@ -18,10 +18,10 @@ private:
     //     ; 
 
     std::string source_2d = 
-        #include "cle_add_image_and_scalar_2d.h"
+        #include "cle_add_image_and_scalar_2d.hpp"
         ;     
     std::string source_3d = 
-        #include "cle_add_image_and_scalar_3d.h"
+        #include "cle_add_image_and_scalar_3d.hpp"
         ;     
 
 public:

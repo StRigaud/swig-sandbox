@@ -1,9 +1,9 @@
 #ifndef __cleOperations_h
 #define __cleOperations_h
 
-#include "clic.h"
+#include "clic.hpp"
 
-#include "cleGPU.h"
+#include "cleGPU.hpp"
 
 namespace clic
 {

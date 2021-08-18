@@ -3,13 +3,13 @@
 #ifndef __cleGPU_h
 #define __cleGPU_h
 
-#include "clic.h"
+#include "clic.hpp"
 
 
-#include "cleDeviceManager.h"
-#include "cleContextManager.h"
-#include "clePlatformManager.h"
-#include "cleCommandQueueManager.h"
+#include "cleDeviceManager.hpp"
+#include "cleContextManager.hpp"
+#include "clePlatformManager.hpp"
+#include "cleCommandQueueManager.hpp"
 
 #include <map>
 #include <iostream>

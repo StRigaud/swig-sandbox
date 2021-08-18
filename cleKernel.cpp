@@ -1,5 +1,5 @@
 
-#include "cleKernel.h"
+#include "cleKernel.hpp"
 
 namespace clic
 {
@@ -31,7 +31,7 @@ void Kernel::ManageDimensions(std::string tag)
 std::string Kernel::LoadPreamble()
 {
     std::string preamble = 
-        #include "cle_preamble.h"
+        #include "cle_preamble.hpp"
     ;
     return preamble;
 }
@@ -64,14 +64,14 @@ std::string Kernel::LoadDefines()
     for (auto itr = m_ParameterList.begin(); itr != m_ParameterList.end(); ++itr)
     {
         // if (itr->second->IsObjectType(LightObject::cleBuffer))
-        if (itr->second->GetObjectType() == "cleBuffer")
+        if (itr->second->IsObjectType("buffer"))
         {              
             // get object information
             std::shared_ptr<clic::Buffer> object = std::dynamic_pointer_cast<clic::Buffer>(itr->second);
             std::string tagObject = itr->first;
             std::string objectType = object->GetObjectType();
             std::string dataType = object->GetDataType();
-            std::string abbrType = TypeAbbr(dataType);
+            std::string abbrType = TypeAbbr(dataType.c_str());
             // image type handling
             defines = defines + "\n#define CONVERT_" + tagObject + "_PIXEL_TYPE clij_convert_" + dataType + "_sat";
             defines = defines + "\n#define IMAGE_" + tagObject + "_TYPE __global " + dataType + "*";
@@ -113,8 +113,7 @@ std::string Kernel::LoadDefines()
             else // 3/4D
             {
                 defines = defines + "\n#define POS_" + tagObject + "_TYPE int4";
-                defines =
-                    defines + "\n#define POS_" + tagObject + "_INSTANCE(pos0,pos1,pos2,pos3) (int4)(pos0, pos1, pos2, 0)";
+                defines = defines + "\n#define POS_" + tagObject + "_INSTANCE(pos0,pos1,pos2,pos3) (int4)(pos0, pos1, pos2, 0)";
             }
             // read/write images
             std::string sdim = (object->GetShape()[0] == 1) ? "2" : "3";
@@ -137,28 +136,15 @@ std::string Kernel::GenerateSources()
     return source;
 }
 
-std::string Kernel::TypeAbbr(const std::string type) const
+std::string Kernel::TypeAbbr(const char* str) const
 {
-    if (type.compare("float") == 0)
-    {
-        return "f";
-    }
-    else if (type.compare("char") == 0)
-    {
-        return  "c";
-    }
-    else if (type.compare("uchar") == 0)
-    {
-        return  "uc";
-    }
-    else if (type.compare("int") == 0)
-    {
-        return  "i";
-    }
-    else if (type.compare("uint") == 0)
-    {
-        return  "ui";
-    }
+    size_t size = sizeof(str)/sizeof(char);
+    if (strncmp("double", str, size) == 0)        return "d";
+    if (strncmp("float", str, size) == 0)         return "f";
+    if (strncmp("char", str, size) == 0)          return "c";
+    if (strncmp("unsigned char", str, size) == 0) return "uc";
+    if (strncmp("int", str, size) == 0)           return "i";
+    if (strncmp("unsigned int", str, size) == 0)  return "ui";
     return ""; 
 }
 
@@ -170,7 +156,7 @@ void Kernel::SetArguments()
         if(m_ParameterList.find(it->c_str()) != m_ParameterList.end())
         {
             std::string tag = it->c_str();
-            if (m_ParameterList.at(tag)->GetObjectType() == "cleBuffer")
+            if (m_ParameterList.at(tag)->IsObjectType("buffer"))
             {    
                 std::shared_ptr<clic::Buffer> object = std::dynamic_pointer_cast<clic::Buffer>(m_ParameterList.at(tag));
                 this->m_Kernel.setArg(index, object->GetObject());
@@ -180,15 +166,33 @@ void Kernel::SetArguments()
                     m_GlobalRange[i] = std::max(m_GlobalRange[i], tempDim);
                 }
             }
-            else if (m_ParameterList.at(tag)->GetObjectType() == "cleFloat")
+            else if (m_ParameterList.at(tag)->IsObjectType("scalar"))
             {    
-                std::shared_ptr<clic::Float> object = std::dynamic_pointer_cast<clic::Float>(m_ParameterList.at(tag));
-                this->m_Kernel.setArg(index, object->GetObject());
-            }
-            else if (m_ParameterList.at(tag)->GetObjectType() == "cleInt")
-            {   
-                std::shared_ptr<clic::Int> object = std::dynamic_pointer_cast<clic::Int>(m_ParameterList.at(tag));
-                this->m_Kernel.setArg(index, object->GetObject());
+                if (m_ParameterList.at(tag)->IsDataType("float")) {
+                    std::shared_ptr< clic::Scalar<float> > object = std::dynamic_pointer_cast< clic::Scalar<float> >(m_ParameterList.at(tag));
+                    this->m_Kernel.setArg(index, object->GetObject()); 
+                }
+                else if (m_ParameterList.at(tag)->IsDataType("double")) {
+                    std::shared_ptr< clic::Scalar<double> > object = std::dynamic_pointer_cast< clic::Scalar<double> >(m_ParameterList.at(tag));
+                    this->m_Kernel.setArg(index, object->GetObject()); 
+                }
+                else if (m_ParameterList.at(tag)->IsDataType("int")) {
+                    std::shared_ptr< clic::Scalar<int> > object = std::dynamic_pointer_cast< clic::Scalar<int> >(m_ParameterList.at(tag));
+                    this->m_Kernel.setArg(index, object->GetObject()); 
+                }
+                else if (m_ParameterList.at(tag)->IsDataType("char")) {
+                    std::shared_ptr< clic::Scalar<char> > object = std::dynamic_pointer_cast< clic::Scalar<char> >(m_ParameterList.at(tag));
+                    this->m_Kernel.setArg(index, object->GetObject()); 
+                }
+                else if (m_ParameterList.at(tag)->IsDataType("unsigned int")) {
+                    std::shared_ptr< clic::Scalar<unsigned int> > object = std::dynamic_pointer_cast< clic::Scalar<unsigned int> >(m_ParameterList.at(tag));
+                    this->m_Kernel.setArg(index, object->GetObject()); 
+                }
+                else if (m_ParameterList.at(tag)->IsDataType("unsigned char")) {
+                    std::shared_ptr< clic::Scalar<unsigned char> > object = std::dynamic_pointer_cast< clic::Scalar<unsigned char> >(m_ParameterList.at(tag));
+                    this->m_Kernel.setArg(index, object->GetObject());
+                }
+
             }
         }
     }
@@ -205,7 +209,7 @@ void Kernel::AddObject(Buffer o, std::string t)
         }
         else    
         {
-            m_ParameterList.insert(std::make_pair(t, std::make_shared<Buffer>(o)));
+            m_ParameterList.insert(std::make_pair(t.c_str(), std::make_shared<Buffer>(o)));
         }
     }
     else
@@ -218,20 +222,20 @@ void Kernel::AddObject(int o, std::string t)
 {
     if(std::find(m_TagList.begin(), m_TagList.end(), t.c_str()) != m_TagList.end())
     {
-        Int x(o);
+        clic::Scalar<int> x(o);
         auto it = m_ParameterList.find(t.c_str()); 
         if (it != m_ParameterList.end())
         {
-            it->second = std::make_shared<Int>(x);
+            it->second = std::make_shared< clic::Scalar<int> >(x);
         }
         else    
         {
-            m_ParameterList.insert(std::make_pair(t, std::make_shared<Int>(x)));
+            m_ParameterList.insert(std::make_pair(t.c_str(), std::make_shared< clic::Scalar<int> >(x)));
         }
     }
     else
     {
-        std::cerr << "Error: Invalid Int parameter tag" << std::endl;
+        std::cerr << "Error: Invalid Scalar parameter tag" << std::endl;
     }
 }
 
@@ -239,20 +243,20 @@ void Kernel::AddObject(float o, std::string t)
 {
     if(std::find(m_TagList.begin(), m_TagList.end(), t.c_str()) != m_TagList.end())
     {
-        Float x(o);
+        clic::Scalar<float> x(o);
         auto it = m_ParameterList.find(t.c_str()); 
         if (it != m_ParameterList.end())
         {
-            it->second = std::make_shared<Float>(x);
+            it->second = std::make_shared< clic::Scalar<float> >(x);
         }
         else    
         {
-            m_ParameterList.insert(std::make_pair(t, std::make_shared<Float>(x)));
+            m_ParameterList.insert(std::make_pair(t.c_str(), std::make_shared< Scalar<float> >(x)));
         }
     }
     else
     {
-        std::cerr << "Error: Invalid Float parameter tag" << std::endl;
+        std::cerr << "Error: Invalid Scalar parameter tag" << std::endl;
     }
 }
 

@@ -1,12 +1,12 @@
 #ifndef __clesperanto_h
 #define __clesperanto_h
 
-#include "clic.h"
+#include "clic.hpp"
 
-#include "cleBuffer.h"
-#include "cleGPU.h"
+#include "cleDataType.hpp"
+#include "cleGPU.hpp"
 
-#include "cleAddImageAndScalarKernel.h"
+#include "cleAddImageAndScalarKernel.hpp"
 
 namespace clic
 {

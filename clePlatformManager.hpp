@@ -1,7 +1,7 @@
 #ifndef __clePlatformManager_h
 #define __clePlatformManager_h
 
-#include "clic.h"
+#include "clic.hpp"
 
 #include <vector>
 

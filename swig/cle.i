@@ -3,9 +3,9 @@
 // Add necessary symbols to generated header
 %{
 #define SWIG_FILE_WITH_INIT
-#include "clic.h"
-#include "clesperanto.h"
-#include "cleBuffer.h"
+#include "clic.hpp"
+#include "clesperanto.hpp"
+#include "cleDataType.hpp"
 %}
 
 %include "numpy.i"
@@ -29,9 +29,9 @@ import_array();
 
 
 // Process symbols in header
-%include "clic.h"
-%include "cleBuffer.h"
-%include "clesperanto.h"
+%include "clic.hpp"
+%include "cleDataType.hpp"
+%include "clesperanto.hpp"
 
 
 
@@ -71,7 +71,7 @@ def create_from_list (self, list):
 
 def pull (self, Buffer, array=None, type=np.float32):
     if array is None:
-        array = np.empty((Buffer.GetDim0(), Buffer.GetDim1(), Buffer.GetDim2()), dtype=type).squeeze()
+        array = np.empty((Buffer.GetWidth(), Buffer.GetHeight(), Buffer.GetDepth()), dtype=type).squeeze()
     if len(array.shape) == 3:
         self.pull_3darray(Buffer, array)
     elif len(array.shape) == 2:
